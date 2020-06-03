@@ -1,34 +1,18 @@
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pusher/pusher.dart';
-import 'package:fuelcontrol/pages/home.dart';
-import 'package:fuelcontrol/pages/login.dart';
-import 'package:fuelcontrol/pages/mainpage.dart';
-import 'package:fuelcontrol/pages/notification.dart';
-import 'package:fuelcontrol/pages/signup.dart';
-import 'package:fuelcontrol/pages/statistics.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fuelcontrol/pages/splash.dart';
 
-void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  if(sharedPreferences.get('loggedIn') == 'true'){
-    runApp(MyApp(MainPage()));
-    return;
-  }
-  runApp(MyApp(LoginPage()));
+void main(){
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  Widget to;
-  MyApp(this.to);
 
   @override
   Widget build(BuildContext context) {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Fuel Control',
+      title: 'Fuel Control Driver',
       theme: ThemeData(
         primaryColor: Color(0xFFF22613),
         primaryColorLight: Color(0xFFF34C3D),
@@ -42,7 +26,7 @@ class MyApp extends StatelessWidget {
           body1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal, color: Colors.white),
         )
       ),
-      home: to,
+      home: SplashScreen(),
     );
   }
 }

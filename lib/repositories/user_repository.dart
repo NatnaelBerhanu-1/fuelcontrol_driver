@@ -21,7 +21,7 @@ class UserRepository {
         'email': user.email,
         'password': user.password,
         'filter': 'driver'
-      }).timeout(Duration(seconds: 10));
+      });
 
       print(response.body);
 
