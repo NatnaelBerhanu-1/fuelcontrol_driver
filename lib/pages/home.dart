@@ -9,116 +9,113 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return ChangeNotifierProvider<HomeViewModel>(
-      create: (context) => HomeViewModel(),
-      child: Consumer<HomeViewModel>(
-        builder:(context, homeViewModel, child) => homeViewModel.homeState == HomePageState.Success? SingleChildScrollView(
-          child: Container(
-            color: Theme.of(context).backgroundColor,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(bottom: Radius.circular(10.0))),
-                  child: Center(
-                    child: QrImage(
-                      data: homeViewModel.loggedInUser.email,
-                      version: QrVersions.auto,
-                      size: 150.0,
-                    ),
-                  )
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                InfoCard(
-                  title: 'Balance',
-                  desc: '${homeViewModel.loggedInUser.balance}',
-                  icon: Icon(
-                    Icons.monetization_on,
-                    size: 45.0,
-                    color: Colors.black,
-                  ),
-                ),
-                InfoCard(
-                  title: 'Monthly spent',
-                  desc: '${homeViewModel.loggedInUser.monthlySpent} br',
-                  icon: Icon(
-                    Icons.timelapse,
-                    size: 45.0,
-                    color: Colors.black,
-                  ),
-                ),
-                Card(
-                  margin: EdgeInsets.only(bottom:15.0, left: 5.0, right: 5.0),
-                  color: Colors.transparent,
-                  child: Container(
-                    padding: EdgeInsets.all(15.0),
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor],
-                          begin:Alignment.topLeft,
-                          end: Alignment.topRight,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Profile',
-                              style: Theme.of(context).textTheme.title.copyWith(color: Colors.white),
-                            ),
-                            Text(
-                              'Name: ${homeViewModel.loggedInUser.name}',
-                              style: Theme.of(context).textTheme.subtitle.copyWith(color: Colors.white),
-                            ),
-                            Text(
-                              'Email: ${homeViewModel.loggedInUser.email}',
-                              style: Theme.of(context).textTheme.subtitle.copyWith(color: Colors.white),
-                            ),
-                            Text(
-                              'Status: ${homeViewModel.loggedInUser.status}',
-                              style: Theme.of(context).textTheme.subtitle.copyWith(color: Colors.white),
-                            ),
-                            GestureDetector(
-                              onTap: (){
-                                Scaffold.of(context).showBottomSheet((context) => _buildBottomSheet(context));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top:8.0),
-                                child: Text(
-                                  'change password',
-                                  style: Theme.of(context).textTheme.subtitle.copyWith(color: Colors.greenAccent),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+    return Consumer<HomeViewModel>(
+      builder:(context, homeViewModel, child) => homeViewModel.homeState == HomePageState.Success? SingleChildScrollView(
+        child: Container(
+          color: Theme.of(context).backgroundColor,
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 20.0),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(10.0))),
+                child: Center(
+                  child: QrImage(
+                    data: homeViewModel.loggedInUser.email,
+                    version: QrVersions.auto,
+                    size: 150.0,
                   ),
                 )
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              InfoCard(
+                title: 'Balance',
+                desc: '${homeViewModel.loggedInUser.balance}',
+                icon: Icon(
+                  Icons.monetization_on,
+                  size: 45.0,
+                  color: Colors.black,
+                ),
+              ),
+              InfoCard(
+                title: 'Monthly spent',
+                desc: '${homeViewModel.loggedInUser.monthlySpent} br',
+                icon: Icon(
+                  Icons.timelapse,
+                  size: 45.0,
+                  color: Colors.black,
+                ),
+              ),
+              Card(
+                margin: EdgeInsets.only(bottom:15.0, left: 5.0, right: 5.0),
+                color: Colors.transparent,
+                child: Container(
+                  padding: EdgeInsets.all(15.0),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor],
+                        begin:Alignment.topLeft,
+                        end: Alignment.topRight,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Profile',
+                            style: Theme.of(context).textTheme.title.copyWith(color: Colors.white),
+                          ),
+                          Text(
+                            'Name: ${homeViewModel.loggedInUser.name}',
+                            style: Theme.of(context).textTheme.subtitle.copyWith(color: Colors.white),
+                          ),
+                          Text(
+                            'Email: ${homeViewModel.loggedInUser.email}',
+                            style: Theme.of(context).textTheme.subtitle.copyWith(color: Colors.white),
+                          ),
+                          Text(
+                            'Status: ${homeViewModel.loggedInUser.status}',
+                            style: Theme.of(context).textTheme.subtitle.copyWith(color: Colors.white),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              Scaffold.of(context).showBottomSheet((context) => _buildBottomSheet(context));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(top:8.0),
+                              child: Text(
+                                'change password',
+                                style: Theme.of(context).textTheme.subtitle.copyWith(color: Colors.greenAccent),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
           ),
-        ): homeViewModel.homeState == HomePageState.Error?Retry(callback: (){homeViewModel.getUser(false);}):Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
+        ),
+      ): homeViewModel.homeState == HomePageState.Error?Retry(callback: (){homeViewModel.getUser(false);}):Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
           ),
-        )
-      ),
+        ),
+      )
     );
   }
 

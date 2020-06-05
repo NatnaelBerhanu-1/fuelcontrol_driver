@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 100.0,
             ),
             Text(
-              'Fuel Control Seller'
+              'Fuel Control Driver'
             ),
             Padding(
               padding: const EdgeInsets.only(top:20.0),

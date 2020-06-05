@@ -9,28 +9,25 @@ class NotificationPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return ChangeNotifierProvider<NotificationViewModel>(
-      create: (context) => NotificationViewModel(),
-      child: Consumer<NotificationViewModel>(
-        builder:(context, viewModel, child) => viewModel.pageState == ViewState.Success ? SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children:
-                viewModel.notifications.map((notification){
-                  return InvoiceItem(notification: notification,);
-                }).toList()
-            ),
+    return Consumer<NotificationViewModel>(
+      builder:(context, viewModel, child) => viewModel.pageState == ViewState.Success ? SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children:
+              viewModel.notifications.map((notification){
+                return InvoiceItem(notification: notification,);
+              }).toList()
           ),
-        ): viewModel.pageState == ViewState.Busy? Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
+        ),
+      ): viewModel.pageState == ViewState.Busy? Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
           ),
-        ): viewModel.pageState == ViewState.Error? Container(child: Retry(callback: viewModel.getNotifications)):Container(),
-      ),
+        ),
+      ): viewModel.pageState == ViewState.Error? Container(child: Retry(callback: viewModel.getNotifications)):Container(),
     );
   }
 }
