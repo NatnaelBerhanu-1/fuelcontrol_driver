@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fuelcontrol/pages/login.dart';
 import 'package:fuelcontrol/pages/mainpage.dart';
+import 'package:fuelcontrol/viewModels/screens/home_view_model.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget{
-
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -15,18 +16,28 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState(){
     Future<SharedPreferences> sharedPreferences = SharedPreferences.getInstance();
-    var task = Future.delayed(Duration(seconds: 3), (){
-      return true;
-    });
-    task.then((value){
-      sharedPreferences.then((sharedPreferences){
-        if (sharedPreferences.get('loggedIn') == 'true') {
+    sharedPreferences.then((sharedPreferences){
+      if (sharedPreferences.get('loggedIn') == 'true') {
+        var data = Provider.of<HomeViewModel>(context, listen: false);
+        var user = data.getUser(true).then((user){
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>MainPage()), (Route<dynamic> route)=>false);
-        }else{
-          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>LoginPage()), (Route<dynamic> route)=>false);
-        }
-      });
+        });
+      }else{
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>LoginPage()), (Route<dynamic> route)=>false);
+      }
     });
+    //    var task = Future.delayed(Duration(seconds: 3), (){
+//      return true;
+//    });
+//    task.then((value){
+//      sharedPreferences.then((sharedPreferences){
+//        if (sharedPreferences.get('loggedIn') == 'true') {
+//          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>MainPage()), (Route<dynamic> route)=>false);
+//        }else{
+//          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>LoginPage()), (Route<dynamic> route)=>false);
+//        }
+//      });
+//    });
     super.initState();
   }
 

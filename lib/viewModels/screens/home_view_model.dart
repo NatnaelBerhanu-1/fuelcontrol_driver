@@ -24,7 +24,6 @@ class HomeViewModel extends ChangeNotifier{
     if (_userRepository == null){
       _userRepository = UserRepository(preferences: sharedPreferences);
     }
-    getUser(false);
   }
 
   Future<User> getUser(bool refresh) async {
